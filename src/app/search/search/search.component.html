@@ -1,0 +1,30 @@
+<div class="row mt-2" *ngFor="let s of series">
+  <div class="col col-sm-1"><img src="{{s.imageUrl}}" alt="{{s.title}} image" height="160px"></div>
+  <div class="col col-sm-8 mx-2">
+    <div class="mb-0 h4">
+      {{s.title}} 
+      <span class="bi bi-headphones h5"></span>
+      <span class="ms-1 badge text-bg-success">8</span>
+      <i class="ms-1 bi bi-star-fill text-warning"></i>
+      <!-- <i class="ms-1 bi bi-star text-warning"></i> -->
+    </div>
+    <div class="fs-6">
+      Author: {{s.author}}
+    </div>
+    <div class="fs-6">
+      Genre: {{s.genre}}
+    </div>
+    <div class="mb-2">
+      <span class="me-1 badge text-bg-success">Sex: G</span>
+      <span class="me-1 badge text-bg-success">Profanity: B</span>
+      <span class="me-1 badge text-bg-warning">Violence: HV</span>
+    </div>
+    <!-- <div>reviews: TODO comonent</div> -->
+    <!-- <div>books: TODO comonent</div> -->
+    <!-- <div>series info: TODO comonent</div> -->
+    <div>
+      <button class="btn btn-sm btn-outline-primary me-1">View</button>
+      <button class="btn btn-sm btn-outline-success me-1">Review</button>
+    </div>
+  </div>
+</div>
