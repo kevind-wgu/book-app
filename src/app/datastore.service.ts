@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from "../environments/environment";
 import { ErrortrackerService } from './errors/errortracker.service';
-import { Bookmarks, Review, Series } from './models';
+import { Bookmarks, SeriesReview, Series } from './models';
 import { Observable, Subscription, catchError, map, of, switchMap, take, tap, throwError } from 'rxjs';
 import { AppState } from './store/app.store';
 import { Store } from '@ngrx/store';
@@ -110,14 +110,14 @@ export class DatastoreService {
     }));
   }
 
-  upsertReview(seriesId: string, userId: string, review: Review) : Observable<any> {
+  upsertSeriesReview(seriesId: string, userId: string, review: SeriesReview) : Observable<any> {
     return this.http.put(URL + `/series/${seriesId}/reviews/${userId}.json`, review).pipe(
       catchError((e, caught) => {
-        this.errortracker.addError("Error Upserting Review", e, {seriesId: seriesId, userId: userId, review: review});
+        this.errortracker.addError("Error Upserting SeriesReview", e, {seriesId: seriesId, userId: userId, review: review});
         return throwError(() => caught);
       }),
     ).pipe(map(res => {
-      console.log("Review Added", seriesId, userId, review);
+      console.log("SeriesReview Added", seriesId, userId, review);
       return 
     }));
   }

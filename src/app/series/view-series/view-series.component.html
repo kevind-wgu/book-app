@@ -6,8 +6,7 @@
         {{series.title}} 
         <span class="bi bi-headphones h5"></span>
         <app-rate-view [small]="true" [type]="review.overall"></app-rate-view>
-        <a (click)="changeBookmark(false)" style="cursor: pointer;"><i class="ms-1 bi bi-bookmark text-warning" *ngIf="!bookmarks[series.id]"></i></a>
-        <a (click)="changeBookmark(true)" style="cursor: pointer;"><i class="ms-1 bi bi-bookmark-check-fill text-warning" *ngIf="bookmarks[series.id]"></i></a>
+        <app-bookmark [seriesId]="series.id" [bookmarked]="bookmarked"></app-bookmark>
       </div>
     </div>
     <app-review-view [review]="review" [small]="false"></app-review-view>

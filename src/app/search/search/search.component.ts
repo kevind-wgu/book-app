@@ -1,18 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { Subscription, map, of, switchMap, take } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 import { Series } from '../../models';
-import { AppState } from '../../store/app.store';
 import { DatastoreService } from '../../datastore.service';
-import { reloadUserData } from '../../store/userdata.store';
+import { UsercacheService } from '../../cache/usercache.service';
+import { SearchItemComponent } from '../search-item/search-item.component';
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, SearchItemComponent],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
@@ -26,22 +25,23 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   bookmarks: {[key: string]: boolean} = {};
 
-  constructor(private store: Store<AppState>, private datastore: DatastoreService) {}
+  constructor(private cache: UsercacheService, private datastore: DatastoreService) {}
 
   ngOnInit(): void {
-    this.subs.push(this.store.select('series').subscribe(store => {
-      this.series = store.seriesList;
+    this.setData();
+    this.subs.push(this.cache.changed.subscribe(change => {
+      this.setData();
     }));
-    this.subs.push(this.store.select('userdata').subscribe(store => {
-      this.bookmarks = store.bookmarks;
-    }));
+  }
+
+  private setData() {
+    this.series = this.cache.getSeriesList();
+    this.bookmarks = this.cache.getBookmarks();
   }
 
   ngOnDestroy(): void {
     this.subs.forEach(s => s.unsubscribe());
   }
 
-  changeBookmark(seriesId: string, toggleOn: boolean) {
-    this.datastore.toggleBookmark(seriesId, toggleOn);
-  }
+
 }

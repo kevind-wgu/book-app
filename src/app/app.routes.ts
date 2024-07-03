@@ -4,7 +4,7 @@ import { SearchComponent } from './search/search/search.component';
 import { authGuard } from './auth/auth.guard';
 import { AddSeriesComponent } from './series/add-series/add-series.component';
 import { ViewSeriesComponent } from './series/view-series/view-series.component';
-import { AddReviewComponent } from './review/add-review/add-review.component';
+import { AddSeriesReviewComponent } from './review/add-review/add-review.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: '/search', pathMatch: 'full'},
@@ -13,7 +13,7 @@ export const routes: Routes = [
     {path: 'new', component: AddSeriesComponent},
     {path: ':id', component: ViewSeriesComponent},
     {path: ':id/edit', component: AddSeriesComponent},
-    {path: ':id/review', component: AddReviewComponent},
+    {path: ':id/review', component: AddSeriesReviewComponent},
   ]},
   {path: 'login', component: LoginComponent},
 ];

@@ -14,10 +14,6 @@ export class RateViewComponent implements OnChanges {
   @Input() small!: boolean;
   data!: RatingDetail;
 
-  // ngOnInit(): void {
-  //   this.setData();
-  // }
-
   ngOnChanges(changes: SimpleChanges): void {
     this.setData();
   }
@@ -35,7 +31,6 @@ export class RateViewComponent implements OnChanges {
     else if (this.type in SexType) {
       this.data = SexData[this.type as SexType];
     }
-    // console.log("Rate", this.type, this.data, this.small);
   }
 
 

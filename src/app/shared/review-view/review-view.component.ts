@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Review } from '../../models';
+import { SeriesReview } from '../../models';
 import { RateViewComponent } from '../rate-view/rate-view.component';
 import { CommonModule } from '@angular/common';
 
@@ -10,8 +10,8 @@ import { CommonModule } from '@angular/common';
   templateUrl: './review-view.component.html',
   styleUrl: './review-view.component.css'
 })
-export class ReviewViewComponent {
-  @Input() review!: Review;
+export class SeriesReviewViewComponent {
+  @Input() review!: SeriesReview;
   @Input() small: boolean = true;
 
   constructor() {}

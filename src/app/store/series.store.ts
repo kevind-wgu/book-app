@@ -7,7 +7,7 @@ import { DatastoreService } from "../datastore.service";
 import * as AuthStore from "./auth.store";
 import { AppState } from "./app.store";
 import { Router } from "@angular/router";
-import { Review, Series } from "../models";
+import { SeriesReview, Series } from "../models";
 import { keyById } from "../common.fn";
 
 export interface State {
@@ -28,8 +28,8 @@ export const setSeries = createAction('[Series] SetSeries',
   props<{series: Series}>()
 );
 
-export const setReview = createAction('[Series] setReview', 
-  props<{seriesId: string, review: Review}>()
+export const setSeriesReview = createAction('[Series] setSeriesReview', 
+  props<{seriesId: string, review: SeriesReview}>()
 );
 
 export const SeriesReducer = createReducer(
@@ -44,7 +44,7 @@ export const SeriesReducer = createReducer(
     var seriesList = Object.values(seriesSet);
     return {...state, seriesList: seriesList, seriesSet: seriesSet};
   }),
-  on(setReview, (state, action) => {
+  on(setSeriesReview, (state, action) => {
     var seriesList = [...state.seriesList];
     var seriesSet = keyById(seriesList);
     const series = {...seriesSet[action.seriesId]};

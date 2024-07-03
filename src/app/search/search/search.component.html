@@ -1,28 +1,3 @@
-<div class="row mt-2" *ngFor="let s of series">
-  <div class="col col-sm-2"><img src="{{s.imageUrl}}" alt="{{s.title}} image" class="img-thumbnail"></div>
-  <div class="col col-sm-8 mx-2">
-    <div class="mb-0 h4">
-      {{s.title}} 
-      <span class="bi bi-headphones h5"></span>
-      <span class="ms-1 badge text-bg-success">8</span>
-      <a (click)="changeBookmark(s.id, true)" style="cursor: pointer;"><i class="ms-1 bi bi-bookmark text-warning" *ngIf="!bookmarks[s.id]"></i></a>
-      <a (click)="changeBookmark(s.id, false)" style="cursor: pointer;"><i class="ms-1 bi bi-bookmark-check-fill text-warning" *ngIf="bookmarks[s.id]"></i></a>
-    </div>
-    <div class="mb-2">
-      <span class="me-1 badge text-bg-success">Sex: G*</span>
-      <span class="me-1 badge text-bg-success">Profanity: B*</span>
-      <span class="me-1 badge text-bg-warning">Violence: HV*</span>
-    </div>
-    <div><span class="fw-semibold">Author:</span> {{s.author}}</div>
-    <div><span class="fw-semibold">Genre: </span>{{s.genre}}*</div>
-    <div><span class="fw-semibold"># of Books: </span>3*</div>
-    <div *ngIf="!s.complete"><span class="fw-semibold">Series is NOT complete</span></div>
-    <!-- <div>reviews: TODO comonent</div> -->
-    <!-- <div>books: TODO comonent</div> -->
-    <!-- <div>series info: TODO comonent</div> -->
-    <div>
-      <button class="btn btn-sm btn-outline-primary me-1" routerLink="/series/{{s.id}}">View</button>
-      <button class="btn btn-sm btn-outline-success me-1" routerLink="/series/{{s.id}}/review" [queryParams]="{fromSearch: true}">Review</button>
-    </div>
-  </div>
+<div *ngFor="let s of series">
+  <app-search-item [series]="s" [bookmarked]="bookmarks[s.id]"></app-search-item>
 </div>

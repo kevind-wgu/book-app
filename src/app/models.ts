@@ -129,21 +129,20 @@ export interface Series {
   goodreadsId: string | null
   synopsis: string
   complete: boolean
-  reviews?: {[key: string]: Review}
+  reviews?: {[key: string]: SeriesReview}
+  books?: {[key: string]: Book}
 }
+
+export type SeriesSet = {[key: string]: Series}
 
 export interface Book {
   id: string
-	seriesId: string
 	seriesNumber: number
 	location: LocationType
 	title: string
-	imageUrl: string
-	goodreadsId: string | null
-	synopsis: string
 }
 
-export interface Review {
+export interface SeriesReview {
   userId: string
   notes: string
   date: Date

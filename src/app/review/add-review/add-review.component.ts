@@ -7,11 +7,11 @@ import { Store } from '@ngrx/store';
 
 import { DatastoreService } from '../../datastore.service';
 import { AppState } from '../../store/app.store';
-import { Review, Series, RatingList, ViolenceList, ProfanityList, SexList } from '../../models';
+import { SeriesReview, Series, RatingList, ViolenceList, ProfanityList, SexList } from '../../models';
 import { AuthService } from '../../auth/auth.service';
-import { setReview } from '../../store/series.store';
+import { setSeriesReview } from '../../store/series.store';
 import { CommonModule } from '@angular/common';
-import { RateViewComponent } from '../rate-view/rate-view.component';
+import { RateViewComponent } from '../../shared/rate-view/rate-view.component';
 
 @Component({
   selector: 'app-add-review',
@@ -20,11 +20,10 @@ import { RateViewComponent } from '../rate-view/rate-view.component';
   templateUrl: './add-review.component.html',
   styleUrl: './add-review.component.css'
 })
-export class AddReviewComponent {
+export class AddSeriesReviewComponent {
   private subs : Subscription[] = [];
   private editInitted = false;
   private seriesId!: string;
-  private seriesSet: {[key: string]: Series} = {};
   private fromSearch: boolean = false;
   series!: Series;
   form!: FormGroup;
@@ -76,8 +75,8 @@ export class AddReviewComponent {
   private setupForm() {
     if (!this.editInitted) {
       this.editInitted = true;
-      const review = this.getReview();
-      console.log("Set Review", review);
+      const review = this.getSeriesReview();
+      console.log("Set SeriesReview", review);
       const formRatings: {[key: string]: FormControl} = {
         overall: new FormControl(review ? review.overall : '', [Validators.required]),
         violence: new FormControl(review ? review.violence : '', [Validators.required]),
@@ -104,7 +103,7 @@ export class AddReviewComponent {
     this.collapseRating[name] = !this.collapseRating[name];
   }
 
-  private getReview() : Review | null {
+  private getSeriesReview() : SeriesReview | null {
     var review = null;
     if (this.series.reviews) {
       review = this.series.reviews[this.authService.getAuth().getId()];
@@ -117,7 +116,7 @@ export class AddReviewComponent {
       const formData = this.form.value;
       const userId = this.authService.getAuth().getId();
       const seriesId = this.series.id;
-      const review : Review = {
+      const review : SeriesReview = {
         userId: userId,
         notes: formData.notes,
         date: new Date(), 
@@ -126,14 +125,14 @@ export class AddReviewComponent {
         sex: formData.sex, 
         profanity: formData.profanity,
       }
-      const prevReview = this.getReview();
-      if (prevReview) {
-        review.date = prevReview.date;
+      const prevSeriesReview = this.getSeriesReview();
+      if (prevSeriesReview) {
+        review.date = prevSeriesReview.date;
       }
 
       console.log("save review", seriesId, review);
-      this.datastore.upsertReview(seriesId, userId, review).subscribe(res => {
-        this.store.dispatch(setReview({seriesId: seriesId, review: review}));
+      this.datastore.upsertSeriesReview(seriesId, userId, review).subscribe(res => {
+        this.store.dispatch(setSeriesReview({seriesId: seriesId, review: review}));
         this.navigate();
       });
     }
