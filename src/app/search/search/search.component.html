@@ -22,7 +22,7 @@
     <!-- <div>series info: TODO comonent</div> -->
     <div>
       <button class="btn btn-sm btn-outline-primary me-1" routerLink="/series/{{s.id}}">View</button>
-      <button class="btn btn-sm btn-outline-success me-1" routerLink="/series/{{s.id}}/review">Review</button>
+      <button class="btn btn-sm btn-outline-success me-1" routerLink="/series/{{s.id}}/review" [queryParams]="{fromSearch: true}">Review</button>
     </div>
   </div>
 </div>

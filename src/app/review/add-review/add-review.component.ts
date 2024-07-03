@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Subscription, switchMap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
@@ -25,6 +25,7 @@ export class AddReviewComponent {
   private editInitted = false;
   private seriesId!: string;
   private seriesSet: {[key: string]: Series} = {};
+  private fromSearch: boolean = false;
   series!: Series;
   form!: FormGroup;
   edit = false;
@@ -47,54 +48,56 @@ export class AddReviewComponent {
   ) {}
 
   ngOnInit(): void {
-    this.subs.push(this.route.params.subscribe(params => {
-      if (params['id']) {
-        this.seriesId = params['id'];
-        this.setSeries();
-      }
-    }));
-    this.subs.push(this.store.select('series').subscribe(seriesStore => {
-      this.seriesSet = seriesStore.seriesSet;
-      this.setSeries();
-    }));
+    // this.subs.push(
+      this.route.params.pipe(
+        switchMap(params => {
+          if (params['id']) {
+            this.seriesId = params['id'];
+          }
+          return this.route.queryParams.pipe(
+            switchMap(queryParams => {
+              if (queryParams['fromSearch']) {
+                this.fromSearch = true;
+              }
+              return this.store.select('series');
+            })
+          );
+        },
+      )).subscribe(store => {
+        this.series = store.seriesSet[this.seriesId];
+        this.setupForm();
+      });
   }
 
   ngOnDestroy(): void {
     this.subs.forEach(s => s.unsubscribe());
   }
 
-  private setSeries() {
-    if (!this.editInitted) {
-      const series = this.seriesSet[this.seriesId];
-      if (series) {
-        this.series = series;
-        this.setupForm();
-      }
-    }
-  }
-
   private setupForm() {
-    const review = this.getReview();
-    console.log("Set Review", review);
-    const formRatings: {[key: string]: FormControl} = {
-      overall: new FormControl(review ? review.overall : '', [Validators.required]),
-      violence: new FormControl(review ? review.violence : '', [Validators.required]),
-      sex: new FormControl(review ? review.sex : '', [Validators.required]),
-      profanity: new FormControl(review ? review.profanity : '', [Validators.required]),
-    };
+    if (!this.editInitted) {
+      this.editInitted = true;
+      const review = this.getReview();
+      console.log("Set Review", review);
+      const formRatings: {[key: string]: FormControl} = {
+        overall: new FormControl(review ? review.overall : '', [Validators.required]),
+        violence: new FormControl(review ? review.violence : '', [Validators.required]),
+        sex: new FormControl(review ? review.sex : '', [Validators.required]),
+        profanity: new FormControl(review ? review.profanity : '', [Validators.required]),
+      };
 
-    this.form = new FormGroup({
-      ...formRatings,
-      notes: new FormControl(review ? review.notes : '', []),
-    });
-
-    Object.keys(formRatings).forEach(k => {
-      formRatings[k].valueChanges.subscribe(v => {
-        if (v) {
-          this.collapseRating[k] = true;
-        }
+      this.form = new FormGroup({
+        ...formRatings,
+        notes: new FormControl(review ? review.notes : '', []),
       });
-    })
+
+      Object.keys(formRatings).forEach(k => {
+        formRatings[k].valueChanges.subscribe(v => {
+          if (v) {
+            this.collapseRating[k] = true;
+          }
+        });
+      });
+    }
   }
 
   onToggleShowRating(name: string) {
@@ -127,16 +130,26 @@ export class AddReviewComponent {
       if (prevReview) {
         review.date = prevReview.date;
       }
+
       console.log("save review", seriesId, review);
       this.datastore.upsertReview(seriesId, userId, review).subscribe(res => {
         this.store.dispatch(setReview({seriesId: seriesId, review: review}));
-        this.router.navigate(['series',seriesId]);
+        this.navigate();
       });
     }
   }
 
   onCancel() {
     if (this.series) {
+      this.navigate();
+    }
+  }
+
+  private navigate() {
+    if (this.fromSearch) {
+      this.router.navigate(['search'])
+    }
+    else {
       this.router.navigate(['series', this.series.id])
     }
   }

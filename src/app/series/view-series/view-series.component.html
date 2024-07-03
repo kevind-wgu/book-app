@@ -20,5 +20,11 @@
     <div class="fs-6" *ngIf="sanitizedReviewUrl">
       
     </div>
+    <div class="row">
+      <div class="col col-sm-8">
+        <button class="btn btn-sm btn-outline-primary me-1" routerLink="/series/{{series.id}}/edit">Edit</button>
+        <button class="btn btn-sm btn-outline-success me-1" routerLink="/series/{{series.id}}/review">Review</button>
+      </div>
+    </div>
   </div>
 </div>

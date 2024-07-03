@@ -40,8 +40,8 @@ export const SeriesReducer = createReducer(
     return {...state, seriesList: seriesList, seriesSet: seriesSet};
   }),
   on(setSeries, (state, action) => {
-    var seriesList = ([...state.seriesList, action.series] as Series[]);
-    var seriesSet = keyById(seriesList);
+    var seriesSet = {...state.seriesSet, [action.series.id]: action.series};
+    var seriesList = Object.values(seriesSet);
     return {...state, seriesList: seriesList, seriesSet: seriesSet};
   }),
   on(setReview, (state, action) => {
