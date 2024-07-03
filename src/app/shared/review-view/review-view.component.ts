@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './review-view.component.css'
 })
 export class SeriesReviewViewComponent {
-  @Input() review!: SeriesReview;
+  @Input({required: true}) review!: SeriesReview;
   @Input() small: boolean = false;
   @Input() medium: boolean = false;
   @Input() large: boolean = false;

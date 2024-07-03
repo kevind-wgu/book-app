@@ -101,25 +101,23 @@ export class AddSeriesComponent implements OnInit, OnDestroy {
         return;
       }
 
-      var seriesId = this.edit ? this.seriesId : crypto.randomUUID();
-      if (seriesId) {
-        const series : Series = {
-          id: seriesId,
-          author: formData.author,
-          genre: formData.genre,
-          reviewUrl: formData.reviewUrl,
-          title: formData.title,
-          imageUrl: formData.imageUrl,
-          goodreadsId: formData.goodreadsId,
-          synopsis: formData.synopsis,
-          complete: !!formData.complete,
-        }
-        console.log("save series", series);
-        this.datastore.updateSeries(series).subscribe(res => {
-          this.store.dispatch(setSeries({series: series}));
-          this.router.navigate(['series',seriesId]);
-        });
+      var seriesId = this.seriesId ? this.seriesId : crypto.randomUUID();
+      const series : Series = {
+        id: seriesId,
+        author: formData.author,
+        genre: formData.genre,
+        reviewUrl: formData.reviewUrl,
+        title: formData.title,
+        imageUrl: formData.imageUrl,
+        goodreadsId: formData.goodreadsId,
+        synopsis: formData.synopsis,
+        complete: !!formData.complete,
       }
+      console.log("save series", series);
+      this.datastore.updateSeries(series).subscribe(res => {
+        this.store.dispatch(setSeries({series: series}));
+        this.router.navigate(['series',seriesId]);
+      });
     }
   }
 

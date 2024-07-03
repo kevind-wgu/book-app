@@ -7,7 +7,7 @@
     </div>
     <div><span class="fw-semibold">Author:</span> {{series.author}}</div>
     <div><span class="fw-semibold">Genre: </span>{{series.genre}}*</div>
-    <div><span class="fw-semibold"># Books: </span>3*</div>
+    <div><span class="fw-semibold"># Books: </span>{{bookCount}}</div>
     <div *ngIf="!series.complete"><span class="fw-semibold">Series is NOT complete</span></div>
     <!-- <div>reviews: TODO comonent</div> -->
     <!-- <div>books: TODO comonent</div> -->

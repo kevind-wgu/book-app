@@ -1,9 +1,9 @@
-<div *ngIf="small">
+<span *ngIf="small">
   <app-rate-view [small]="true" [type]="review.overall"></app-rate-view>
   <app-rate-view [small]="true" [type]="review.violence"></app-rate-view>
   <app-rate-view [small]="true" [type]="review.profanity"></app-rate-view>
   <app-rate-view [small]="true" [type]="review.sex"></app-rate-view>
-</div>
+</span>
 <div *ngIf="medium">
   <app-rate-view [medium]="true" [type]="review.overall"></app-rate-view>
   <app-rate-view [medium]="true" [type]="review.violence"></app-rate-view>

@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './rate-view.component.css'
 })
 export class RateViewComponent implements OnChanges {
-  @Input() type!: RatingType | ViolenceType | ProfanityType | SexType | string;
+  @Input({required: true}) type!: RatingType | ViolenceType | ProfanityType | SexType | string;
   @Input() small: boolean = false;
   @Input() medium: boolean = false;
   @Input() large: boolean = false;

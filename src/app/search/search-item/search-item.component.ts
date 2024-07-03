@@ -18,6 +18,7 @@ export class SearchItemComponent implements OnInit {
   @Input() series!: Series;
   @Input() bookmarked: boolean = false;
   review: SeriesReview | null = null;
+  bookCount = 0;
   sexReview: SexType | null = null;
   violenceReview: ViolenceType | null = null;
   profanityReview: ProfanityType | null = null;
@@ -30,6 +31,10 @@ export class SearchItemComponent implements OnInit {
       this.sexReview = this.review.sex;
       this.violenceReview = this.review.violence;
       this.profanityReview = this.review.profanity;
+    }
+    if (this.series.books) {
+      this.bookCount = Object.keys(this.series.books).length;
+      console.log("Book count", this.bookCount);
     }
   }
 }

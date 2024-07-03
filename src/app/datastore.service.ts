@@ -15,6 +15,12 @@ export type UserData = {
   bookmarks: Bookmarks
 }
 
+type SeriesData = {
+  data: Series,
+  reviews?: {[key: string]: SeriesReview}
+  books?: {[key: string]: Book}
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -23,13 +29,14 @@ export class DatastoreService {
 
   // SERIES
   getSeriesList() :Observable<Series[]> {
-    return this.http.get<{[key: string]: Series}>(URL + '/series.json').pipe(
+    return this.http.get<{[key: string]: SeriesData}>(URL + '/series.json').pipe(
       map(SeriesObj => {
         if (!SeriesObj) {
           return [];
         }
         return Object.keys(SeriesObj).map(key => {
-          return {...SeriesObj[key]};
+          const s = SeriesObj[key]
+          return {...s.data, books: s.books, reviews: s.reviews};
         });
       }),
       catchError((e, caught) => {
@@ -40,7 +47,7 @@ export class DatastoreService {
   }
 
   updateSeries(series: Series) : Observable<any> {
-    return this.http.put(URL + `/series/${series.id}.json`, series).pipe(
+    return this.http.put(URL + `/series/${series.id}/data.json`, series).pipe(
       catchError((e, caught) => {
         this.errortracker.addError("Error Saving Series", e, {series: series, caught:caught});
         return throwError(() => caught);

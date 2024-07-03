@@ -100,12 +100,14 @@ export class AddSeriesReviewComponent {
   }
 
   onToggleShowRating(name: string) {
-    this.collapseRating[name] = !this.collapseRating[name];
+    if (this.form.controls[name].valid) {
+      this.collapseRating[name] = !this.collapseRating[name];
+    }
   }
 
   private getSeriesReview() : SeriesReview | null {
     var review = null;
-    if (this.series.reviews) {
+    if (this.series?.reviews) {
       review = this.series.reviews[this.authService.getAuth().getId()];
     }
     return review;

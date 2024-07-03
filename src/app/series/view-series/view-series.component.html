@@ -1,6 +1,12 @@
 <div class="row mt-2" *ngIf="series">
-  <div class="col col-sm-2"><img src="{{series.imageUrl}}" alt="{{series.title}} image" class="img-fluid"></div>
+  <div class="col col-sm-2 d-none d-sm-block">
+    <img src="{{series.imageUrl}}" alt="{{series.title}} image" class="img-fluid">
+  </div>
   <div class="col col-sm-8 mx-2">
+    <span class="col col-sm-2 d-block d-sm-none">
+      <!-- Display only on small screens -->
+      <img src="{{series.imageUrl}}" alt="{{series.title}} image" style="max-width: 25%;">
+    </span>
     <app-series-title [series]="series" [bookmarked]="bookmarked"></app-series-title>
     <app-review-view [review]="review" [medium]="true" *ngIf="review"></app-review-view>
     <div class="fs-6">
@@ -18,6 +24,12 @@
     <div class="ms-4 mb-2">
       <app-view-book [seriesId]="series.id" [book]="book" *ngFor="let book of books"></app-view-book>
       <app-add-book [seriesId]="series.id" [onCloseListener]="closeAddBook" *ngIf="showAddBook"></app-add-book>
+    </div>
+    <div class="fs-6" *ngIf="series.reviews">
+      Reviews:
+    </div>
+    <div class="ms-4 mb-2" *ngIf="series.reviews">
+      UserName* <app-review-view [review]="review.value" [small]="true" *ngFor="let review of series.reviews | keyvalue"></app-review-view>
     </div>
     <div class="row">
       <div class="col col-sm-8">

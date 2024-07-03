@@ -1,10 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Subject, Subscription, switchMap, tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
-import { ProfanityType, RatingType, SeriesReview, Series, SexType, ViolenceType, Book } from '../../models';
+import { SeriesReview, Series, Book } from '../../models';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { SeriesReviewViewComponent } from '../../shared/review-view/review-view.component';
 import { RateViewComponent } from '../../shared/rate-view/rate-view.component';
