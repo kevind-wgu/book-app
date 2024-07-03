@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { SeriesReview } from '../../models';
+import { SeriesReview } from '../models.objects';
 import { RateViewComponent } from '../rate-view/rate-view.component';
 import { CommonModule } from '@angular/common';
 

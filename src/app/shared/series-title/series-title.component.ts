@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
+
 import { BookmarkComponent } from '../bookmark/bookmark.component';
 import { RateViewComponent } from '../rate-view/rate-view.component';
 import { SeriesReviewViewComponent } from '../review-view/review-view.component';
-import { RatingType, Series, SeriesReview } from '../../models';
+import { Series, SeriesReview } from '../models.objects';
+import { RatingType } from '../models.types';
 import { UsercacheService } from '../../cache/usercache.service';
 
 @Component({

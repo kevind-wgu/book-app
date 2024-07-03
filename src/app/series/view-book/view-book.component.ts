@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Book, LocationType } from '../../models';
 import { CommonModule, NgIf } from '@angular/common';
+
+import { Book } from '../../shared/models.objects';
+import { LocationType } from '../../shared/models.types';
 import { AddBookComponent } from '../add-book/add-book.component';
 import { Subject } from 'rxjs';
 

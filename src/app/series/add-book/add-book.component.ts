@@ -1,10 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Book, LocationData } from '../../models';
 import { CommonModule } from '@angular/common';
 import { Subject } from 'rxjs';
-import { DatastoreService } from '../../datastore.service';
 import { Store } from '@ngrx/store';
+
+import { Book } from '../../shared/models.objects';
+import { LocationData } from '../../shared/models.types';
+import { DatastoreService } from '../../datastore.service';
 import { AppState } from '../../store/app.store';
 import { setBook } from '../../store/series.store';
 

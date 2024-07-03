@@ -3,7 +3,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Subject, Subscription, switchMap, tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
-import { SeriesReview, Series, Book } from '../../models';
+import { SeriesReview, Series, Book } from '../../shared/models.objects';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { SeriesReviewViewComponent } from '../../shared/review-view/review-view.component';
 import { RateViewComponent } from '../../shared/rate-view/rate-view.component';

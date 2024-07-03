@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ProfanityType, Series, SeriesReview, SexType, ViolenceType } from '../../models';
-import { DatastoreService } from '../../datastore.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+
+import { DatastoreService } from '../../datastore.service';
+import { Series, SeriesReview } from '../../shared/models.objects';
+import { ProfanityType, SexType, ViolenceType } from '../../shared/models.types';
 import { SeriesTitleComponent } from '../../shared/series-title/series-title.component';
 import { UsercacheService } from '../../cache/usercache.service';
 import { SeriesReviewViewComponent } from '../../shared/review-view/review-view.component';

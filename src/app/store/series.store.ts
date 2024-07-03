@@ -7,7 +7,7 @@ import { DatastoreService } from "../datastore.service";
 import * as AuthStore from "./auth.store";
 import { AppState } from "./app.store";
 import { Router } from "@angular/router";
-import { SeriesReview, Series, Book } from "../models";
+import { SeriesReview, Series, Book } from "../shared/models.objects";
 import { keyById } from "../common.fn";
 
 export interface State {

@@ -3,7 +3,7 @@ import { environment } from "../../environments/environment";
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, map, tap, throwError } from 'rxjs';
 import { ErrortrackerService } from '../errors/errortracker.service';
-import { AuthData } from '../models';
+import { AuthData } from '../shared/models.objects';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/app.store';
 import * as AuthStore from '../store/auth.store';

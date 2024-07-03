@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import * as UserStore from '../store/userdata.store'
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/app.store';
-import { Bookmarks, Series, SeriesSet } from '../models';
+import { Bookmarks, Series, SeriesSet } from '../shared/models.objects';
 
 export enum ChangeType {
   bookmarks,

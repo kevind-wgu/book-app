@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { RatingType, RatingDetail, RatingData, ViolenceType, ProfanityType, SexType, ViolenceData, ProfanityData, SexData } from '../../models';
 import { CommonModule } from '@angular/common';
+import { ProfanityData, ProfanityType, RatingData, RatingDetail, RatingType, SexData, SexType, ViolenceData, ViolenceType } from '../models.types';
 
 @Component({
   selector: 'app-rate-view',

@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 
-import { Series } from '../../models';
+import { Series } from '../../shared/models.objects';
 import { DatastoreService } from '../../datastore.service';
 import { UsercacheService } from '../../cache/usercache.service';
 import { SearchItemComponent } from '../search-item/search-item.component';

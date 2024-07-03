@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { AppState } from "../store/app.store";
-import { AuthData } from "../models";
+import { AuthData } from "../shared/models.objects";
 
 import { environment } from "../../environments/environment";
 

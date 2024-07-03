@@ -1,9 +1,10 @@
 import { createAction, createReducer, on, props } from "@ngrx/store";
-import { AuthData, authFromStorageString } from "../models";
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { DatastoreService } from "../datastore.service";
 import { map, of, switchMap, tap } from "rxjs";
+
+import { DatastoreService } from "../datastore.service";
+import { AuthData } from "../shared/models.objects";
 import { AuthService } from "../auth/auth.service";
 import { Router } from "@angular/router";
 
@@ -36,6 +37,16 @@ export class AuthEffects {
     private router: Router,
   ) {}
 
+  private authFromStorageString(dataStr: string) : AuthData | null {
+    if (dataStr) { const data = JSON.parse(dataStr);
+      if (data.email && data.token && data.expireTime && data.refreshToken) {
+        const expire = new Date(data.expireTime);
+        return new AuthData(data.id, data.email, data.token, expire, data.refreshToken);
+      }
+    }
+    return null;
+  }
+
   autoLogin = createEffect(
     () => this.actions$.pipe(
       ofType(autoLogin),
@@ -44,7 +55,7 @@ export class AuthEffects {
         const localAuthStr = localStorage.getItem('auth');
         if (localAuthStr) {
           console.log("Auto Login B")
-          const auth = authFromStorageString(localAuthStr);
+          const auth = this.authFromStorageString(localAuthStr);
 
           if (auth && auth.isValid()) {
             console.log("Auto Login C")

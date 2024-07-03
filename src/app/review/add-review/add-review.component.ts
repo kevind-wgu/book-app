@@ -7,7 +7,8 @@ import { Store } from '@ngrx/store';
 
 import { DatastoreService } from '../../datastore.service';
 import { AppState } from '../../store/app.store';
-import { SeriesReview, Series, RatingList, ViolenceList, ProfanityList, SexList } from '../../models';
+import { SeriesReview, Series } from '../../shared/models.objects';
+import { RatingList, ViolenceList, ProfanityList, SexList } from '../../shared/models.types';
 import { AuthService } from '../../auth/auth.service';
 import { setSeriesReview } from '../../store/series.store';
 import { CommonModule } from '@angular/common';

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from "../environments/environment";
 import { ErrortrackerService } from './errors/errortracker.service';
-import { Bookmarks, SeriesReview, Series, Book } from './models';
+import { Bookmarks, SeriesReview, Series, Book } from './shared/models.objects';
 import { Observable, Subscription, catchError, map, of, switchMap, take, tap, throwError } from 'rxjs';
 import { AppState } from './store/app.store';
 import { Store } from '@ngrx/store';

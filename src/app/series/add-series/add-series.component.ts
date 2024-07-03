@@ -5,7 +5,8 @@ import { Store } from '@ngrx/store';
 
 import { AppState } from '../../store/app.store';
 import { DatastoreService } from '../../datastore.service';
-import { Series, GenreData } from '../../models';
+import { Series } from '../../shared/models.objects';
+import { GenreData } from '../../shared/models.types';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Subscription, debounceTime, switchMap } from 'rxjs';
