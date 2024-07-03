@@ -15,6 +15,11 @@ export class SeriesReviewViewComponent {
   @Input() small: boolean = false;
   @Input() medium: boolean = false;
   @Input() large: boolean = false;
+  expand = false;
 
   constructor() {}
+
+  toggleExpand() {
+    this.expand = !this.expand;
+  }
 }

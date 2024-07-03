@@ -4,8 +4,7 @@ import { SearchComponent } from './search/search/search.component';
 import { authGuard } from './auth/auth.guard';
 import { AddSeriesComponent } from './series/add-series/add-series.component';
 import { ViewSeriesComponent } from './series/view-series/view-series.component';
-import { AddSeriesReviewComponent } from './review/add-review/add-review.component';
-import { AddBookComponent } from './series/add-book/add-book.component';
+import { AddSeriesReviewComponent } from './series/add-series-review/add-series-review.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: '/search', pathMatch: 'full'},

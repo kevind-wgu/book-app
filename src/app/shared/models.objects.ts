@@ -16,15 +16,23 @@ export interface Series {
 
 export type SeriesSet = {[key: string]: Series}
 
+export interface BookReview {
+  userId: string,
+  date: Date,
+  overall: RatingType,
+}
+
 export interface Book {
   id: string
 	seriesNumber: number
 	location: LocationType
 	title: string
+  reviews?: {[key: string]: BookReview}
 }
 
 export interface SeriesReview {
   userId: string
+  userName: string
   notes: string
   date: Date
   overall: RatingType

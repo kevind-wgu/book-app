@@ -1,8 +1,12 @@
-<span *ngIf="small">
+<span *ngIf="small" (click)="toggleExpand()" class="clickable">
+  <span class="bi bi-caret-{{expand?'down':'right'}}-fill"></span>
+  {{review.userName}}
+  [{{review.date | date}}]
   <app-rate-view [small]="true" [type]="review.overall"></app-rate-view>
   <app-rate-view [small]="true" [type]="review.violence"></app-rate-view>
   <app-rate-view [small]="true" [type]="review.profanity"></app-rate-view>
   <app-rate-view [small]="true" [type]="review.sex"></app-rate-view>
+  <span class="bi bi-journal-text h5 ms-1"></span>
 </span>
 <div *ngIf="medium">
   <app-rate-view [medium]="true" [type]="review.overall"></app-rate-view>
@@ -10,7 +14,12 @@
   <app-rate-view [medium]="true" [type]="review.profanity"></app-rate-view>
   <app-rate-view [medium]="true" [type]="review.sex"></app-rate-view>
 </div>
-<div *ngIf="large">
+<div *ngIf="large || expand">
+  <div class="row" *ngIf="expand && review.notes">
+    <div class="col col-sm-auto mb-0">
+      Review: {{review.notes}}
+    </div>
+  </div>
   <div class="row">
     <div class="col col-sm-auto mb-0">
       <app-rate-view [large]="true" [type]="review.overall"></app-rate-view>

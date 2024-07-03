@@ -15,17 +15,18 @@ import { CommonModule } from '@angular/common';
 import { RateViewComponent } from '../../shared/rate-view/rate-view.component';
 
 @Component({
-  selector: 'app-add-review',
+  selector: 'app-add-series-review',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RateViewComponent],
-  templateUrl: './add-review.component.html',
-  styleUrl: './add-review.component.css'
+  templateUrl: './add-series-review.component.html',
+  styleUrl: './add-series-review.component.css'
 })
 export class AddSeriesReviewComponent {
   private subs : Subscription[] = [];
   private editInitted = false;
   private seriesId!: string;
   private fromSearch: boolean = false;
+
   series!: Series;
   form!: FormGroup;
   edit = false;
@@ -91,11 +92,11 @@ export class AddSeriesReviewComponent {
       });
 
       Object.keys(formRatings).forEach(k => {
-        formRatings[k].valueChanges.subscribe(v => {
+        this.subs.push(formRatings[k].valueChanges.subscribe(v => {
           if (v) {
             this.collapseRating[k] = true;
           }
-        });
+        }));
       });
     }
   }
@@ -118,9 +119,12 @@ export class AddSeriesReviewComponent {
     if (this.form.valid) {
       const formData = this.form.value;
       const userId = this.authService.getAuth().getId();
+      const userName = this.authService.getAuth().getId();
+
       const seriesId = this.series.id;
       const review : SeriesReview = {
         userId: userId,
+        userName: userName,
         notes: formData.notes,
         date: new Date(), 
         overall: formData.overall, 

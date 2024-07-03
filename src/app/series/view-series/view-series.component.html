@@ -24,18 +24,18 @@
     <div class="ms-4 mb-2">
       <app-view-book [seriesId]="series.id" [book]="book" *ngFor="let book of books"></app-view-book>
       <app-add-book [seriesId]="series.id" [onCloseListener]="closeAddBook" *ngIf="showAddBook"></app-add-book>
+      <button class="btn btn-sm btn-outline-secondary me-1" (click)="toggleShowAddBook()" *ngIf="!showAddBook">Add Book</button>
     </div>
     <div class="fs-6" *ngIf="series.reviews">
       Reviews:
     </div>
     <div class="ms-4 mb-2" *ngIf="series.reviews">
-      UserName* <app-review-view [review]="review.value" [small]="true" *ngFor="let review of series.reviews | keyvalue"></app-review-view>
+      <app-review-view [review]="review.value" [small]="true" *ngFor="let review of series.reviews | keyvalue"></app-review-view>
     </div>
     <div class="row">
       <div class="col col-sm-8">
         <button class="btn btn-sm btn-outline-primary me-1" routerLink="/series/{{series.id}}/edit">Edit Series</button>
         <button class="btn btn-sm btn-outline-success me-1" routerLink="/series/{{series.id}}/review">Review Series</button>
-        <button class="btn btn-sm btn-outline-secondary me-1" (click)="toggleShowAddBook()">Add Book</button>
       </div>
     </div>
   </div>

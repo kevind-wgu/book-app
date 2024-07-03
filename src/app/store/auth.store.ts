@@ -3,7 +3,6 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { map, of, switchMap, tap } from "rxjs";
 
-import { DatastoreService } from "../datastore.service";
 import { AuthData } from "../shared/models.objects";
 import { AuthService } from "../auth/auth.service";
 import { Router } from "@angular/router";

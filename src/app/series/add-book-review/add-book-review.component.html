@@ -1,0 +1,25 @@
+<form [formGroup]="form" (submit)="onSubmit()">
+  <div class="row mt-2">
+    <div class="col col-sm-8 mx-2">
+      <div class="mb-3" *ngFor="let rt of ratingControl">
+        <label for="overall" class="form-label">
+          <a (click)="onToggleShowRating(rt.type)">
+            <span *ngIf="collapseRating[rt.type]" class="bi bi-caret-right-fill"></span>
+            <span *ngIf="!collapseRating[rt.type]" class="bi bi-caret-down-fill"></span>
+            {{rt.title}} 
+            <app-rate-view *ngIf="form.value[rt.type]" [type]="form.value[rt.type]" [small]="true"></app-rate-view>
+          </a>
+        </label>
+        <div class="border rounded ps-2 accordion-collapse {{collapseRating[rt.type]? 'collapse' : 'show'}}">
+          <div class="form-check" *ngFor="let data of rt.data">
+            <input class="form-check-input" type="radio" [formControlName]="rt.type" [value]="data.type">
+            <app-rate-view [type]="data.type" [large]="true"></app-rate-view>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary me-1">Save</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="onCancel()">Cancel</button>
+    </div>
+  </div>
+</form>

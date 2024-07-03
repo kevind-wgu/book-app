@@ -1,14 +1,33 @@
-<div class="row" *ngIf="!edit">
+<div class="row clickable" *ngIf="!edit" (click)="onShowTools()">
   <div class="col col-sm-1">
-    {{book.seriesNumber}}
+    <span class="bi bi-caret-{{(showTools || edit || editReview)?'down':'right'}}-fill me-2"></span>
   </div>
-  <div class="col col-sm-1">
-    <span *ngIf="book.location === LocationType.audible" class="bi bi-headphones h5"></span>
-    <span *ngIf="book.location === LocationType.kindle" class="bi bi-book h5"></span>
+  <div class="col col-sm">
+    <span *ngIf="book.location === LocationType.audible" class="bi bi-headphones h5 ms-2"></span>
+    <span *ngIf="book.location === LocationType.kindle" class="bi bi-book h5 ms-2"></span>
   </div>
-  <div class="col col-sm-auto">{{book.title}}</div>
-  <div class="col col-sm-1">
-    <button type="button" (click)="onEdit()" class="btn btn-sm btn-outline-primary bi bi-pen"></button>
+  <div class="col col-sm-8">
+    #{{book.seriesNumber}} {{book.title}}
+    <app-rate-view [type]="review.overall" [small]="true" *ngIf="review"></app-rate-view>
   </div>
 </div>
+<div class="row mb-2" *ngIf="showTools">
+  <div class="col col-sm-auto">
+    <button type="button" (click)="onReviewEdit()" class="btn btn-sm btn-outline-success text-nowrap me-1">Review</button>
+    <button type="button" (click)="onEdit()" class="btn btn-sm btn-outline-primary">Edit</button>
+  </div>
+</div>
+<form *ngIf="editReview">
+  <div class="row mb-2">
+    <div class="col col-sm-12">
+      <app-add-book-review [seriesId]="seriesId" [book]="book" [onCloseListener]="closeEditBook"></app-add-book-review>
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div class="col col-sm-auto">
+      <button type="button" (click)="onReviewSave()" class="btn btn-sm btn-outline-success text-nowrap me-1">Save Review</button>
+      <button type="button" (click)="resetModes()" class="btn btn-sm btn-outline-secondary">Cancel</button>
+    </div>
+  </div>
+</form>
 <app-add-book [seriesId]="seriesId" [book]="book" [onCloseListener]="closeEditBook" *ngIf="edit"></app-add-book>
