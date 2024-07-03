@@ -1,6 +1,10 @@
 export interface RatingDetail {
+  type: RatingType | ViolenceType | ProfanityType | SexType,
   label: string,
-  color: string,
+  order: number,
+  title: string,
+  colorClass: string,
+  descr: string,
 }
 
 export enum LocationType {
@@ -9,10 +13,28 @@ export enum LocationType {
   other = 'other',
 }
 
-export const LocationData = {
+type LocationDataType = {
+  [key in LocationType]: string 
+}
+
+export const LocationData : LocationDataType = {
   [LocationType.kindle]: 'Kindle',
   [LocationType.audible]: 'Audible',
   [LocationType.other]: 'other',
+}
+
+export enum GenreType {
+  fiction = 'fiction',
+  fantasy = 'fantasy',
+}
+
+type GenreDataType = {
+  [key in GenreType]: string 
+}
+
+export const GenreData : GenreDataType = {
+  [GenreType.fiction]: 'Fiction',
+  [GenreType.fantasy]: 'Fantasy',
 }
 
 export enum RatingType {
@@ -22,10 +44,6 @@ export enum RatingType {
   seven = 7,
   six = 6,
   five = 5,
-  four = 4,
-  three = 3,
-  two = 2,
-  one = 1,
 }
 
 type RatingDataType = {
@@ -33,17 +51,14 @@ type RatingDataType = {
 }
 
 export const RatingData : RatingDataType = {
-  [RatingType.ten]: {label: '10', color:'green'},
-  [RatingType.nine]: {label: '9', color:'green'},
-  [RatingType.eight]: {label: '8', color:'green'},
-  [RatingType.seven]: {label: '7', color:'yellow'},
-  [RatingType.six]: {label: '6', color:'yellow'},
-  [RatingType.five]: {label: '5', color:'yellow'},
-  [RatingType.four]: {label: '4', color:'red'},
-  [RatingType.three]: {label: '3', color:'red'},
-  [RatingType.two]: {label: '2', color:'red'},
-  [RatingType.one]: {label: '1', color:'red'},
+  [RatingType.ten]: {type: RatingType.ten, label: '10', order: 1, title: 'Overall', colorClass:'text-bg-success', descr:'Best Ever'},
+  [RatingType.nine]: {type: RatingType.nine, label: '9', order: 2, title: 'Overall', colorClass:'text-bg-success', descr:'Excellent'},
+  [RatingType.eight]: {type: RatingType.eight, label: '8', order: 3, title: 'Overall', colorClass:'text-bg-success', descr:'Good'},
+  [RatingType.seven]: {type: RatingType.seven, label: '7', order: 4, title: 'Overall', colorClass:'text-bg-warning', descr:'Okay'},
+  [RatingType.six]: {type: RatingType.six, label: '6', order: 5, title: 'Overall', colorClass:'text-bg-danger', descr:'Meh'},
+  [RatingType.five]: {type: RatingType.five, label: '5', order: 6, title: 'Overall', colorClass:'text-bg-danger', descr:'Bad'},
 }
+export const RatingList = Object.values(RatingData).sort((a,b) => a.order - b.order);
 
 export enum ViolenceType {
   lv = 'lv',
@@ -57,11 +72,12 @@ type ViolenceDataType = {
 }
 
 export const ViolenceData : ViolenceDataType = {
-  [ViolenceType.lv]: {label: 'lv', color: 'green'},
-  [ViolenceType.mv]: {label: 'mv', color: 'yellow'},
-  [ViolenceType.hv]: {label: 'hv', color: 'yellow'},
-  [ViolenceType.vb]: {label: 'vb', color: 'red'},
+  [ViolenceType.lv]: {type: ViolenceType.lv, label: 'LV', order: 1, title: 'Violence', colorClass: 'text-bg-success', descr: 'LV Descr'},
+  [ViolenceType.mv]: {type: ViolenceType.mv, label: 'MV', order: 2, title: 'Violence', colorClass: 'text-bg-warning', descr: 'MV Descr'},
+  [ViolenceType.hv]: {type: ViolenceType.hv, label: 'HV', order: 3, title: 'Violence', colorClass: 'text-bg-warning', descr: 'HV Descr'},
+  [ViolenceType.vb]: {type: ViolenceType.vb, label: 'VB', order: 4, title: 'Violence', colorClass: 'text-bg-danger', descr: 'VB Descr'},
 }
+export const ViolenceList = Object.values(ViolenceData).sort((a,b) => a.order - b.order);
 
 export enum ProfanityType {
   a = 'a',
@@ -76,31 +92,32 @@ type ProfanityDataType = {
 }
 
 export const ProfanityData : ProfanityDataType = {
-  [ProfanityType.a]: {label: 'a', color: 'green'},
-  [ProfanityType.b]: {label: 'b', color: 'green'},
-  [ProfanityType.c]: {label: 'c', color: 'yellow'},
-  [ProfanityType.d]: {label: 'd', color: 'red'},
-  [ProfanityType.p]: {label: 'p', color: 'red'},
-
+  [ProfanityType.a]: {type: ProfanityType.a, label: 'A', order: 1, title:'Profanity', colorClass:'text-bg-success', descr: 'A Descr'},
+  [ProfanityType.b]: {type: ProfanityType.b, label: 'B', order: 2, title:'Profanity', colorClass:'text-bg-success', descr: 'B Descr'},
+  [ProfanityType.c]: {type: ProfanityType.c, label: 'C', order: 3, title:'Profanity', colorClass:'text-bg-warning', descr: 'C Descr'},
+  [ProfanityType.d]: {type: ProfanityType.d, label: 'D', order: 4, title:'Profanity', colorClass:'text-bg-danger', descr: 'D Descr'},
+  [ProfanityType.p]: {type: ProfanityType.p, label: 'P', order: 5, title:'Profanity', colorClass:'text-bg-danger', descr: 'P Descr'},
 }
+export const ProfanityList = Object.values(ProfanityData).sort((a,b) => a.order - b.order);
 
 export enum SexType {
-  g = 'G',
-  pg = 'PG',
-  m = 'M',
-  r = 'R',
+  g = 'g',
+  pg = 'pg',
+  m = 'm',
+  r = 'r',
 }
 
 type SexDataType = {
   [key in SexType]: RatingDetail
 }
 
-export const SexData = {
-  [SexType.g]: {label: 'G', color: 'green'},
-  [SexType.pg]: {label: 'PG', color: 'green'},
-  [SexType.m]: {label: 'M', color: 'yellow'},
-  [SexType.r]: {label: 'R', color: 'red'},
+export const SexData: SexDataType = {
+  [SexType.g]: {type: SexType.g, label: 'G', order: 1, title: 'Sex', colorClass:'text-bg-success', descr: 'G Descr'},
+  [SexType.pg]: {type: SexType.pg, label: 'PG', order: 2, title: 'Sex', colorClass:'text-bg-success', descr: 'PG Descr'},
+  [SexType.m]: {type: SexType.m, label: 'M', order: 3, title: 'Sex', colorClass:'text-bg-warning', descr: 'M Descr'},
+  [SexType.r]: {type: SexType.r, label: 'R', order: 4, title: 'Sex', colorClass:'text-bg-danger', descr: 'R Descr'},
 }
+export const SexList = Object.values(SexData).sort((a,b) => a.order - b.order);
 
 export interface Series {
   id: string
@@ -112,6 +129,7 @@ export interface Series {
   goodreadsId: string | null
   synopsis: string
   complete: boolean
+  reviews?: {[key: string]: Review}
 }
 
 export interface Book {
@@ -126,7 +144,6 @@ export interface Book {
 }
 
 export interface Review {
-  id: string
   userId: string
   notes: string
   date: Date
@@ -136,13 +153,20 @@ export interface Review {
   profanity: ProfanityType
 }
 
+export type Bookmarks = {[key: string]: boolean}
+
 export class AuthData {
   constructor(
+    private id: string,
     private email: string, 
     private token: string, 
     private expireDate: Date,
     private refreshToken: string,
   ) {}
+
+  getId() : string {
+    return this.id;
+  }
 
   getEmail() : string {
     return this.email;
@@ -162,6 +186,7 @@ export class AuthData {
 
   toStorageString() : string {
     return JSON.stringify({
+      id: this.id,
       email: this.email,
       token: this.token,
       expireTime: this.expireDate.getTime(),
@@ -176,7 +201,7 @@ export function authFromStorageString(dataStr: string) : AuthData | null {
     const data = JSON.parse(dataStr);
     if (data.email && data.token && data.expireTime && data.refreshToken) {
       const expire = new Date(data.expireTime);
-      return new AuthData(data.email, data.token, expire, data.refreshToken);
+      return new AuthData(data.id, data.email, data.token, expire, data.refreshToken);
     }
   }
   return null;

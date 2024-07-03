@@ -10,12 +10,14 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { AuthGuardClass } from './auth/auth.guard';
 import { appReducer } from './store/app.store';
 import { AuthEffects } from './store/auth.store';
+import { SeriesEffects } from './store/series.store';
+import { UserdataEffects } from './store/userdata.store';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes), 
     provideStore(appReducer), 
-    provideEffects([AuthEffects]),
+    provideEffects([AuthEffects, SeriesEffects, UserdataEffects]),
     provideHttpClient(
       withInterceptorsFromDi(),
       withInterceptors([]),

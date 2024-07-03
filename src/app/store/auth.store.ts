@@ -79,7 +79,9 @@ export class AuthEffects {
     () => this.actions$.pipe(
       ofType(login),
       tap((action) => {
-        this.router.navigate(["search"]);
+        if (!action.fromLocal) {
+          this.router.navigate(["search"]);
+        }
       })
     ),
     {dispatch: false}

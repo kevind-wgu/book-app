@@ -1,0 +1,28 @@
+<div *ngIf="small">
+  <app-rate-view [small]="true" [type]="review.overall"></app-rate-view>
+  <app-rate-view [small]="true" [type]="review.violence"></app-rate-view>
+  <app-rate-view [small]="true" [type]="review.profanity"></app-rate-view>
+  <app-rate-view [small]="true" [type]="review.sex"></app-rate-view>
+</div>
+<div *ngIf="!small">
+  <div class="row">
+    <div class="col col-sm-auto mb-0">
+      <app-rate-view [small]="false" [type]="review.overall"></app-rate-view>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col-sm-auto mb-0">
+      <app-rate-view [small]="false" [type]="review.violence"></app-rate-view>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col-sm-auto mb-0">
+      <app-rate-view [small]="false" [type]="review.profanity"></app-rate-view>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col-sm-auto mb-0">
+      <app-rate-view [small]="false" [type]="review.sex"></app-rate-view>
+    </div>
+  </div>
+</div>

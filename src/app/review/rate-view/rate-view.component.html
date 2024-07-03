@@ -1,0 +1,5 @@
+<span *ngIf="small" class="ms-1 badge {{data.colorClass}}">{{data.label}}</span>
+<div *ngIf="!small">
+  <span class="ms-1 badge {{data.colorClass}}">{{data.title}} - {{data.label}}</span>
+  {{data.descr}}
+</div>

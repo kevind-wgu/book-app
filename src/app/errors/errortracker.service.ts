@@ -10,7 +10,7 @@ export class ErrortrackerService {
 
   constructor() { }
 
-  addError(msg: string, err: Error, metadata: any) {
+  addError(msg: string, err?: Error, metadata?: any) {
     console.log(msg, err, metadata);
     this.errors.push(msg);
     this.errorsChanged.next(this.errors);

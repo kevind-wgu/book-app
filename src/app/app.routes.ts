@@ -3,10 +3,17 @@ import { LoginComponent } from './auth/login/login.component';
 import { SearchComponent } from './search/search/search.component';
 import { authGuard } from './auth/auth.guard';
 import { AddSeriesComponent } from './series/add-series/add-series.component';
+import { ViewSeriesComponent } from './series/view-series/view-series.component';
+import { AddReviewComponent } from './review/add-review/add-review.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: '/search', pathMatch: 'full'},
   {path: 'search', component: SearchComponent, canActivate: [authGuard]},
-  {path: 'series/new', component: AddSeriesComponent, canActivate: [authGuard]},
+  {path: 'series', canActivate: [authGuard], children: [
+    {path: 'new', component: AddSeriesComponent},
+    {path: ':id', component: ViewSeriesComponent},
+    {path: ':id/edit', component: AddSeriesComponent},
+    {path: ':id/review', component: AddReviewComponent},
+  ]},
   {path: 'login', component: LoginComponent},
 ];

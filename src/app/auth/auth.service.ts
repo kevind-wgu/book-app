@@ -33,8 +33,20 @@ interface AuthRefreshResponse {
   providedIn: 'root'
 })
 export class AuthService {
+  private auth: AuthData | null = null;
 
-  constructor(private client: HttpClient, private errortracker: ErrortrackerService, private store: Store<AppState>) { }
+  constructor(private client: HttpClient, private errortracker: ErrortrackerService, private store: Store<AppState>) { 
+    store.select('auth').subscribe(store => {
+      this.auth = store.auth;
+    })
+  }
+
+  getAuth(): AuthData {
+    if (this.auth == null) {
+      throw new Error("Auth Missing");
+    }
+    return this.auth;
+  }
 
   login(email: string, password: string) : Observable<any> {
     // console.log("LOGIN:");
@@ -50,7 +62,7 @@ export class AuthService {
       tap(res => {
         const expireDate = new Date();
         expireDate.setSeconds(expireDate.getSeconds() + (+res.expiresIn));
-        const auth = new AuthData(res.email, res.idToken, expireDate, res.refreshToken);
+        const auth = new AuthData(res.localId, res.email, res.idToken, expireDate, res.refreshToken);
         // console.log("LOGIN SUCCESS:", auth.isValid(), auth);
         this.store.dispatch(AuthStore.login({auth: auth, fromLocal: false}));
       })
@@ -72,7 +84,7 @@ export class AuthService {
         console.log("REFRESH Auth Success:");
         const expireDate = new Date();
         expireDate.setSeconds(expireDate.getSeconds() + (+res.expires_in));
-        const refreshAuth = new AuthData(auth.getEmail(), res.id_token, expireDate, res.refresh_token);
+        const refreshAuth = new AuthData(auth.getId(), auth.getEmail(), res.id_token, expireDate, res.refresh_token);
         // console.log("REFRESH SUCCESS:", refreshAuth);
         this.store.dispatch(AuthStore.login({auth: refreshAuth, fromLocal: false}));
         return true;
