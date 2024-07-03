@@ -3,7 +3,7 @@ import { AuthData, authFromStorageString } from "../models";
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { DatastoreService } from "../datastore.service";
-import { of, switchMap, tap } from "rxjs";
+import { map, of, switchMap, tap } from "rxjs";
 import { AuthService } from "../auth/auth.service";
 import { Router } from "@angular/router";
 
@@ -48,17 +48,19 @@ export class AuthEffects {
 
           if (auth && auth.isValid()) {
             console.log("Auto Login C")
-            return of(login({auth: auth, fromLocal: true}));
+            return of(auth);
           }
           else if (auth && auth.getRefreshToken()) {
             console.log("Auto Login D")
-            this.authService.refresh(auth);
-            return of();
+            return this.authService.refresh(auth);
           }
         }
         console.log("Auto Login E")
         return of();
       }),
+      map((data) => {
+        return login({auth: data, fromLocal: true});
+      })
     ),
   );
 

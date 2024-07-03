@@ -48,7 +48,7 @@ export class AuthService {
     return this.auth;
   }
 
-  login(email: string, password: string) : Observable<any> {
+  login(email: string, password: string) : Observable<AuthData> {
     // console.log("LOGIN:");
     return this.client.post<AuthResponse>(
       `${URL}/v1/accounts:signInWithPassword?key=${API_KEY}`, 
@@ -59,17 +59,18 @@ export class AuthService {
         this.errortracker.addError("Error Authenticating", e, {email: email, caught:caught});
         return throwError(() => caught);
       }),
-      tap(res => {
+      map(res => {
         const expireDate = new Date();
         expireDate.setSeconds(expireDate.getSeconds() + (+res.expiresIn));
         const auth = new AuthData(res.localId, res.email, res.idToken, expireDate, res.refreshToken);
         // console.log("LOGIN SUCCESS:", auth.isValid(), auth);
         this.store.dispatch(AuthStore.login({auth: auth, fromLocal: false}));
+        return auth;
       })
     );
   }
 
-  refresh(auth: AuthData) : Observable<boolean> {
+  refresh(auth: AuthData) : Observable<AuthData> {
     console.log("REFRESH Auth:");
     return this.client.post<AuthRefreshResponse>(
       `${URL}/v1/token?key=${API_KEY}`, 
@@ -87,7 +88,7 @@ export class AuthService {
         const refreshAuth = new AuthData(auth.getId(), auth.getEmail(), res.id_token, expireDate, res.refresh_token);
         // console.log("REFRESH SUCCESS:", refreshAuth);
         this.store.dispatch(AuthStore.login({auth: refreshAuth, fromLocal: false}));
-        return true;
+        return auth;
       })
     );
   }

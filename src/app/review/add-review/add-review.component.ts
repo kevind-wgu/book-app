@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 
 import { DatastoreService } from '../../datastore.service';
 import { AppState } from '../../store/app.store';
-import { Review, Series, RatingData, RatingType, ViolenceData, ProfanityData, SexData, RatingList, ViolenceList, ProfanityList, SexList } from '../../models';
+import { Review, Series, RatingList, ViolenceList, ProfanityList, SexList } from '../../models';
 import { AuthService } from '../../auth/auth.service';
 import { setReview } from '../../store/series.store';
 import { CommonModule } from '@angular/common';
@@ -110,7 +110,6 @@ export class AddReviewComponent {
   }
 
   onSubmit() {
-    console.log("form.valid", this.form.valid, this.form.value);
     if (this.form.valid) {
       const formData = this.form.value;
       const userId = this.authService.getAuth().getId();
