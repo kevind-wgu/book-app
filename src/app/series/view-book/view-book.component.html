@@ -1,0 +1,14 @@
+<div class="row" *ngIf="!edit">
+  <div class="col col-sm-1">
+    {{book.seriesNumber}}
+  </div>
+  <div class="col col-sm-1">
+    <span *ngIf="book.location === LocationType.audible" class="bi bi-headphones h5"></span>
+    <span *ngIf="book.location === LocationType.kindle" class="bi bi-book h5"></span>
+  </div>
+  <div class="col col-sm-auto">{{book.title}}</div>
+  <div class="col col-sm-1">
+    <button type="button" (click)="onEdit()" class="btn btn-sm btn-outline-primary bi bi-pen"></button>
+  </div>
+</div>
+<app-add-book [seriesId]="seriesId" [book]="book" [onCloseListener]="closeEditBook" *ngIf="edit"></app-add-book>

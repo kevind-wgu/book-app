@@ -1,0 +1,5 @@
+<div class="mb-0 h4">
+  {{series.title}} 
+  <app-rate-view [type]="rateType" *ngIf="rateType" [small]="true"></app-rate-view>
+  <app-bookmark [seriesId]="series.id" [bookmarked]="bookmarked"></app-bookmark>
+</div>

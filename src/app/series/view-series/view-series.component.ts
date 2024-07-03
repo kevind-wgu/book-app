@@ -1,38 +1,47 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { Subscription, switchMap, tap } from 'rxjs';
+import { Subject, Subscription, switchMap, tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
-import { AppState } from '../../store/app.store';
-import { ProfanityType, RatingType, SeriesReview, Series, SexType, ViolenceType } from '../../models';
-import { DatastoreService } from '../../datastore.service';
+import { ProfanityType, RatingType, SeriesReview, Series, SexType, ViolenceType, Book } from '../../models';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { SeriesReviewViewComponent } from '../../shared/review-view/review-view.component';
 import { RateViewComponent } from '../../shared/rate-view/rate-view.component';
 import { UsercacheService } from '../../cache/usercache.service';
-import { BookmarkComponent } from '../../shared/bookmark/bookmark.component';
+import { SeriesTitleComponent } from '../../shared/series-title/series-title.component';
+import { AddBookComponent } from '../add-book/add-book.component';
+import { ViewBookComponent } from '../view-book/view-book.component';
 
 @Component({
   selector: 'app-view-series',
   standalone: true,
-  imports: [CommonModule, RouterModule, SeriesReviewViewComponent, RateViewComponent, BookmarkComponent],
+  imports: [
+    CommonModule, 
+    RouterModule, 
+    SeriesReviewViewComponent, 
+    RateViewComponent, 
+    SeriesTitleComponent,
+    AddBookComponent,
+    ViewBookComponent,
+  ],
   templateUrl: './view-series.component.html',
   styleUrl: './view-series.component.css'
 })
 export class ViewSeriesComponent implements OnInit, OnDestroy {
   private subs: Subscription[] = [];
   private seriesId!: string;
-  series?: Series;
+  series!: Series;
+  books: Book[] = [];
   sanitizedReviewUrl: SafeResourceUrl | null = null;
   bookmarked = false;
-  review: SeriesReview = {userId: '2', notes: 'Notes 1', date: new Date(), overall: RatingType.eight, violence: ViolenceType.vb, sex: SexType.g, profanity: ProfanityType.c};
+  review: SeriesReview | null = null;
+  closeAddBook = new Subject<boolean>();
+  showAddBook = false;
 
   constructor(
     private cache: UsercacheService,
-    private store: Store<AppState>, 
     private route: ActivatedRoute, 
-    private datastore: DatastoreService,
     private sanitizer: DomSanitizer,
   ) {}
 
@@ -48,6 +57,9 @@ export class ViewSeriesComponent implements OnInit, OnDestroy {
         );
       })
     ).subscribe(() => {}));
+    this.subs.push(this.closeAddBook.subscribe(signal => {
+      this.showAddBook = false;
+    }));
   }
 
   ngOnDestroy(): void {
@@ -57,8 +69,18 @@ export class ViewSeriesComponent implements OnInit, OnDestroy {
   private setData() {
     this.bookmarked = this.cache.getBookmarks()[this.seriesId];
     this.series = this.cache.getSeriesSet()[this.seriesId];
+    if (this.series?.books) {
+      this.books = Object.values(this.series.books).sort((b1, b2) => b1.seriesNumber - b2.seriesNumber);
+    }
     if (this.series?.reviewUrl) {
       this.sanitizedReviewUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.series.reviewUrl);
     }
+    if (this.series?.reviews) {
+      this.review = this.series.reviews[this.cache.getPrimaryReviewerId()];
+    }
+  }
+
+  toggleShowAddBook() {
+    this.showAddBook = !this.showAddBook;
   }
 }

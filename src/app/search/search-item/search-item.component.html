@@ -1,20 +1,13 @@
 <div class="row mt-2">
   <div class="col col-sm-2"><img src="{{series.imageUrl}}" alt="{{series.title}} image" class="img-thumbnail"></div>
   <div class="col col-sm-8 mx-2">
-    <div class="mb-0 h4">
-      {{series.title}} 
-      <span class="bi bi-headphones h5"></span>
-      <span class="ms-1 badge text-bg-success">8</span>
-      <app-bookmark [seriesId]="series.id" [bookmarked]="bookmarked"></app-bookmark>
-    </div>
-    <div class="mb-2">
-      <span class="me-1 badge text-bg-success">Sex: G*</span>
-      <span class="me-1 badge text-bg-success">Profanity: B*</span>
-      <span class="me-1 badge text-bg-warning">Violence: HV*</span>
+    <app-series-title [series]="series" [bookmarked]="bookmarked"></app-series-title>
+    <div class="mb-2" *ngIf="review">
+      <app-review-view [review]="review" [medium]="true"></app-review-view>
     </div>
     <div><span class="fw-semibold">Author:</span> {{series.author}}</div>
     <div><span class="fw-semibold">Genre: </span>{{series.genre}}*</div>
-    <div><span class="fw-semibold"># of Books: </span>3*</div>
+    <div><span class="fw-semibold"># Books: </span>3*</div>
     <div *ngIf="!series.complete"><span class="fw-semibold">Series is NOT complete</span></div>
     <!-- <div>reviews: TODO comonent</div> -->
     <!-- <div>books: TODO comonent</div> -->

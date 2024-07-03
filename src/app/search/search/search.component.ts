@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { Series } from '../../models';
@@ -11,7 +10,7 @@ import { SearchItemComponent } from '../search-item/search-item.component';
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [CommonModule, RouterModule, SearchItemComponent],
+  imports: [CommonModule, SearchItemComponent],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })

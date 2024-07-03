@@ -11,7 +11,9 @@ import { CommonModule } from '@angular/common';
 })
 export class RateViewComponent implements OnChanges {
   @Input() type!: RatingType | ViolenceType | ProfanityType | SexType | string;
-  @Input() small!: boolean;
+  @Input() small: boolean = false;
+  @Input() medium: boolean = false;
+  @Input() large: boolean = false;
   data!: RatingDetail;
 
   ngOnChanges(changes: SimpleChanges): void {

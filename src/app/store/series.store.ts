@@ -7,7 +7,7 @@ import { DatastoreService } from "../datastore.service";
 import * as AuthStore from "./auth.store";
 import { AppState } from "./app.store";
 import { Router } from "@angular/router";
-import { SeriesReview, Series } from "../models";
+import { SeriesReview, Series, Book } from "../models";
 import { keyById } from "../common.fn";
 
 export interface State {
@@ -32,6 +32,10 @@ export const setSeriesReview = createAction('[Series] setSeriesReview',
   props<{seriesId: string, review: SeriesReview}>()
 );
 
+export const setBook = createAction('[Series] setBook', 
+  props<{seriesId: string, book: Book}>()
+);
+
 export const SeriesReducer = createReducer(
   INITIAL_STATE,
   on(setSeriesList, (state, action) => {
@@ -45,12 +49,18 @@ export const SeriesReducer = createReducer(
     return {...state, seriesList: seriesList, seriesSet: seriesSet};
   }),
   on(setSeriesReview, (state, action) => {
-    var seriesList = [...state.seriesList];
-    var seriesSet = keyById(seriesList);
-    const series = {...seriesSet[action.seriesId]};
-    if (series) {
-      series.reviews = {...series.reviews, [action.review.userId]: action.review};
-    }
+    const series = {...state.seriesSet[action.seriesId]};
+    series.reviews = {...series.reviews, [action.review.userId]: action.review};
+    const seriesSet = {...state.seriesSet, [series.id]: series};
+    const seriesList = Object.values(seriesSet);
+
+    return {...state, seriesList: seriesList, seriesSet: seriesSet};
+  }),
+  on(setBook, (state, action) => {
+    const series = {...state.seriesSet[action.seriesId]};
+    series.books = {...series.books, [action.book.id]: action.book};
+    const seriesSet = {...state.seriesSet, [series.id]: series};
+    const seriesList = Object.values(seriesSet);
 
     return {...state, seriesList: seriesList, seriesSet: seriesSet};
   }),

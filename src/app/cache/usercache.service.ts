@@ -25,10 +25,12 @@ export class UsercacheService {
 
   constructor(private store: Store<AppState>) { 
     store.select('userdata').subscribe(store => {
+      // console.log("Changed UserData")
       this.bookmarks = store.bookmarks;
       this.changed.next(ChangeType.bookmarks)
     });
     store.select('series').subscribe(store => {
+      // console.log("Changed Series")
       this.seriesList = store.seriesList;
       this.seriesSet= store.seriesSet;
       this.changed.next(ChangeType.bookmarks)

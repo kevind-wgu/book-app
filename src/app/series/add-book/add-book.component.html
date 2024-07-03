@@ -1,0 +1,16 @@
+<form [formGroup]="form" (submit)="onSubmit()">
+  <div class="input-group mb-3">
+    <input type="number" class="form-control" placeholder="#" aria-label="# in Series" formControlName="seriesNumber">
+    <select class="form-select" aria-label="Location" formControlName="location">
+      <option value="">Book Location</option>
+      <option [value]="location.key" *ngFor="let location of locationData | keyvalue">
+        {{location.value}}
+      </option>
+    </select>
+    <input type="text" class="form-control w-50" placeholder="Title" aria-label="Title" formControlName="title">
+  </div>
+  <div>
+    <button class="btn btn-sm btn-outline-primary me-2">Save Book</button>
+    <button type="button" class="btn btn-sm btn-outline-secondary" (click)="onClose()">Cancel</button>
+  </div>
+</form>

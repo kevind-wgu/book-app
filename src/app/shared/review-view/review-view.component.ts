@@ -12,7 +12,9 @@ import { CommonModule } from '@angular/common';
 })
 export class SeriesReviewViewComponent {
   @Input() review!: SeriesReview;
-  @Input() small: boolean = true;
+  @Input() small: boolean = false;
+  @Input() medium: boolean = false;
+  @Input() large: boolean = false;
 
   constructor() {}
 }

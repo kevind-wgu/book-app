@@ -4,25 +4,31 @@
   <app-rate-view [small]="true" [type]="review.profanity"></app-rate-view>
   <app-rate-view [small]="true" [type]="review.sex"></app-rate-view>
 </div>
-<div *ngIf="!small">
+<div *ngIf="medium">
+  <app-rate-view [medium]="true" [type]="review.overall"></app-rate-view>
+  <app-rate-view [medium]="true" [type]="review.violence"></app-rate-view>
+  <app-rate-view [medium]="true" [type]="review.profanity"></app-rate-view>
+  <app-rate-view [medium]="true" [type]="review.sex"></app-rate-view>
+</div>
+<div *ngIf="large">
   <div class="row">
     <div class="col col-sm-auto mb-0">
-      <app-rate-view [small]="false" [type]="review.overall"></app-rate-view>
+      <app-rate-view [large]="true" [type]="review.overall"></app-rate-view>
     </div>
   </div>
   <div class="row">
     <div class="col col-sm-auto mb-0">
-      <app-rate-view [small]="false" [type]="review.violence"></app-rate-view>
+      <app-rate-view [large]="true" [type]="review.violence"></app-rate-view>
     </div>
   </div>
   <div class="row">
     <div class="col col-sm-auto mb-0">
-      <app-rate-view [small]="false" [type]="review.profanity"></app-rate-view>
+      <app-rate-view [large]="true" [type]="review.profanity"></app-rate-view>
     </div>
   </div>
   <div class="row">
     <div class="col col-sm-auto mb-0">
-      <app-rate-view [small]="false" [type]="review.sex"></app-rate-view>
+      <app-rate-view [large]="true" [type]="review.sex"></app-rate-view>
     </div>
   </div>
 </div>
