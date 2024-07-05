@@ -50,7 +50,7 @@
     <label for="genre" class="form-label">Genre</label>
     <select class="form-select" area-label="Select Team Type" formControlName="genre">
       <option value="">Please Select</option>
-      <option [value]="item.key" *ngFor="let item of genreTypes | keyvalue">{{item.value}}</option>
+      <option [value]="genre" *ngFor="let genre of genres">{{genre}}</option>
     </select>
   </div>
   <div class="mb-3">

@@ -30,7 +30,7 @@ export class AddSeriesComponent implements OnInit, OnDestroy {
 
   form!: FormGroup;
   edit = false;
-  genreTypes = GenreData;
+  genres: string[] = [];
   sanitizedReviewUrl: SafeResourceUrl | null = null;
 
   constructor(
@@ -44,13 +44,17 @@ export class AddSeriesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
+    this.subs.push(this.store.select('global').subscribe(store => {
+      this.genres = store.genres;
+    }));
     this.subs.push(this.route.params.pipe(
       switchMap(params => {
         if (params['id']) {
           this.seriesId = params['id'];
         }
         return this.store.select('series');
-    }))
+      }),
+    )
     .subscribe(store => {
       if (this.seriesId) {
         this.initForm(store.seriesSet[this.seriesId]);

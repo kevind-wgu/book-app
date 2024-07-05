@@ -2,4 +2,5 @@
   {{series.title}} 
   <app-rate-view [type]="rateType" *ngIf="rateType" [small]="true"></app-rate-view>
   <app-bookmark [seriesId]="series.id" [bookmarked]="bookmarked"></app-bookmark>
+  <i class="bi bi-youtube ms-2 text-danger" *ngIf="series.reviewUrl"></i>
 </div>

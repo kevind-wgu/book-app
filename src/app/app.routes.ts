@@ -5,10 +5,12 @@ import { authGuard } from './auth/auth.guard';
 import { AddSeriesComponent } from './series/add-series/add-series.component';
 import { ViewSeriesComponent } from './series/view-series/view-series.component';
 import { AddSeriesReviewComponent } from './series/add-series-review/add-series-review.component';
+import { ViewGenresComponent } from './genre/view-genres/view-genres.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: '/search', pathMatch: 'full'},
   {path: 'search', component: SearchComponent, canActivate: [authGuard]},
+  {path: 'genres', component: ViewGenresComponent, canActivate: [authGuard]},
   {path: 'series', canActivate: [authGuard], children: [
     {path: 'new', component: AddSeriesComponent},
     {path: ':id', component: ViewSeriesComponent},

@@ -1,0 +1,22 @@
+<div class="h3">Manage Genres</div>
+<div class="row align-items-center mt-1" *ngFor="let genre of genres">
+  <div class="col col-sm-6">
+    <i class="bi bi-dot"></i>
+    {{genre}}
+  </div>
+  <div class="col col-sm-1">
+    <button type="button" (click)="onDelete(genre)" class="btn btn-sm btn-outline-danger bi bi-trash"></button>
+  </div>
+</div>
+<div class="row mt-4">
+  <div class="col col-sm-10 h5">New Genre</div>
+</div>
+<form [formGroup]="form" (submit)="onSubmit()">
+  <div class="mb-3">
+    <label for="newgenre" class="form-label">Genre</label>
+    <input type="text" class="form-control" placeholder="Genre" formControlName="newgenre">
+  </div>
+  <div class="mb-3">
+    <button class="btn btn-success" type="submit">Add Genre</button>
+  </div>
+</form>

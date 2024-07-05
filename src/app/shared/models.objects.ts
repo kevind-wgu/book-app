@@ -43,7 +43,7 @@ export interface SeriesReview {
 
 export type Bookmarks = {[key: string]: boolean}
 
-export type SearchData = {
+export interface SearchData {
   q: string | null,
   qt: WordFilterType | null,
   overall: RatingType | null,

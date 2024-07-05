@@ -26,6 +26,10 @@ type SeriesData = {
   books?: {[key: string]: BookData}
 }
 
+export interface GlobalData {
+  genres: {[key:string]: boolean},
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -63,6 +67,11 @@ export class DatastoreService {
   }
 
   updateSeries(series: Series) : Observable<any> {
+    if (!series) {
+      console.warn("Missing Data", series);
+      throw new Error("Missing data");
+    }
+
     return this.http.put(URL + `/series/${series.id}/data.json`, series).pipe(
       catchError((e, caught) => {
         this.errortracker.addError("Error Saving Series", e, {series: series, caught:caught});
@@ -110,6 +119,11 @@ export class DatastoreService {
   }
 
   addBookmark(userId: string, seriesId: string) : Observable<any> {
+    if (!userId || !seriesId) {
+      console.warn("Missing Data", seriesId, userId);
+      throw new Error("Missing data");
+    }
+
     return this.http.put(URL + `/userdata/${userId}/bookmarks/${seriesId}.json`, true).pipe(
       catchError((e, caught) => {
         this.errortracker.addError("Error Adding Bookmark", e, true);
@@ -122,6 +136,11 @@ export class DatastoreService {
   }
 
   deleteBookmark(userId: string, seriesId: string) : Observable<any> {
+    if (!seriesId || !userId) {
+      console.warn("Missing Data", seriesId, userId);
+      throw new Error("Missing data");
+    }
+
     return this.http.delete(URL + `/userdata/${userId}/bookmarks/${seriesId}.json`).pipe(
       catchError((e, caught) => {
         this.errortracker.addError("Error Deleting Bookmark", e, false);
@@ -134,6 +153,11 @@ export class DatastoreService {
   }
 
   upsertSeriesReview(seriesId: string, userId: string, review: SeriesReview) : Observable<any> {
+    if (!seriesId || !userId || !review) {
+      console.warn("Missing Data", seriesId, userId, review);
+      throw new Error("Missing data");
+    }
+
     return this.http.put(URL + `/series/${seriesId}/reviews/${userId}.json`, review).pipe(
       catchError((e, caught) => {
         this.errortracker.addError("Error Upserting SeriesReview", e, {seriesId: seriesId, userId: userId, review: review, caught:caught});
@@ -146,6 +170,11 @@ export class DatastoreService {
   }
 
   upsertBook(seriesId: string, book: Book) : Observable<any> {
+    if (!seriesId || !book) {
+      console.warn("Missing Data", seriesId, book);
+      throw new Error("Missing data");
+    }
+
     return this.http.put(URL + `/series/${seriesId}/books/${book.id}/data.json`, book).pipe(
       catchError((e, caught) => {
         this.errortracker.addError("Error Upserting Book", e, {seriesId: seriesId, book: book, caught:caught});
@@ -158,6 +187,11 @@ export class DatastoreService {
   }
 
   upsertBookReview(seriesId: string, bookId: string, userId: string, review: BookReview) : Observable<any> {
+    if (!seriesId || !bookId || !userId || !review) {
+      console.warn("Missing Data", seriesId, bookId, userId, review);
+      throw new Error("Missing data");
+    }
+
     return this.http.put(URL + `/series/${seriesId}/books/${bookId}/reviews/${userId}.json`, review).pipe(
       catchError((e, caught) => {
         this.errortracker.addError("Error Upserting Book", e, {seriesId: seriesId, bookId: bookId, review: review, caught:caught});
@@ -167,6 +201,51 @@ export class DatastoreService {
         console.log("Book Read", seriesId, bookId, review);
         return 
       }),
+    );
+  }
+
+  // Global Data
+  getGlobalData(): Observable<GlobalData> {
+    return this.http.get<GlobalData>(URL + `/global.json`).pipe(
+      map(globalData => {
+        if (!globalData) {
+          return {genres: {} };
+        }
+        return globalData;
+      }),
+      catchError((e, caught) => {
+        this.errortracker.addError("Error Getting GlobalData", e, {caught:caught});
+        return throwError(() => caught);
+      }),
+    );
+  }
+
+  // Global Data
+  addGenere(genre: string): Observable<any> {
+    if (!genre) {
+      console.warn("Missing Genre");
+      throw new Error("Missing genre");
+    }
+    return this.http.put<GlobalData>(URL + `/global/genres/${genre}.json`, {[genre]: true}).pipe(
+      catchError((e, caught) => {
+        this.errortracker.addError("Error Adding Genre", e, true);
+        return throwError(() => caught);
+      }),
+      tap(() => console.log("Genre Added", genre)),
+    );
+  }
+
+  deleteGenere(genre: string): Observable<any> {
+    if (!genre) {
+      console.warn("Missing Genre");
+      throw new Error("Missing genre");
+    }
+    return this.http.delete<GlobalData>(URL + `/global/genres/${genre}.json`).pipe(
+      catchError((e, caught) => {
+        this.errortracker.addError("Error Deleting Genre", e, {caught:caught});
+        return throwError(() => caught);
+      }),
+      tap(() => console.log("Genre Deleted", genre)),
     );
   }
 }

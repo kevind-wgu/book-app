@@ -14,10 +14,62 @@
       <a class="link-secondary" routerLink="/search" [queryParams]="{'q': series.author, 'qt': 'Author'}">{{series.author}}</a>
     </div>
     <div class="fs-6">
-      Snopsis: {{series.synopsis}}
+      Genre: {{series.genre}}
+    </div> 
+    <div *ngIf="series.synopsis">
+      <div *ngIf="series.synopsis.length < 100">
+        Synopsis: {{series.synopsis}}
+      </div>
+      <div class="accordion accordion-preview" id="accordionSynopsis" *ngIf="series.synopsis.length >= 100">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingSynopsis">
+            <button 
+              class="accordion-button collapsed pt-2 pb-2 border" 
+              type="button" 
+              data-bs-toggle="collapse" 
+              data-bs-target="#collapseSynopsis" 
+              aria-expanded="false" 
+              aria-controls="collapseThree"
+            >
+              Snopsis:
+            </button>
+          </h2>
+          <div id="collapseSynopsis" class="accordion-collapse collapse" aria-labelledby="headingSynopsis" data-bs-parent="#accordionSynopsis">
+            <pre class="accordion-body" style="white-space:pre-wrap;">{{series.synopsis}}
+            </pre>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="review?.notes">
+      <div *ngIf="!useAccordion(review?.notes)">
+        Review: {{review?.notes}}
+      </div>
+      <div class="accordion accordion-preview" id="accordionReviewNotes" *ngIf="useAccordion(review?.notes)">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingReviewNotes">
+            <button 
+              class="accordion-button collapsed pt-2 pb-2 border" 
+              type="button" 
+              data-bs-toggle="collapse" 
+              data-bs-target="#collapseReviewNotes" 
+              aria-expanded="false" 
+              aria-controls="collapseThree"
+            >
+             Review:
+            </button>
+          </h2>
+          <div id="collapseReviewNotes" class="accordion-collapse collapse" aria-labelledby="headingReviewNotes" data-bs-parent="#accordionReviewNotes">
+            <pre class="accordion-body" style="white-space:pre-wrap;">{{review?.notes}}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fs-6 h4" *ngIf="sanitizedReviewUrl">
+      Review Video: 
     </div>
     <div class="fs-6" *ngIf="sanitizedReviewUrl">
-      TODO: ReviewUrl
+      <iframe width="200" [src]="sanitizedReviewUrl" title="Review" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
     <div class="fs-6 h4">
       Books:

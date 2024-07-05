@@ -6,9 +6,7 @@ import { map, of, switchMap, tap, withLatestFrom } from "rxjs";
 import { DatastoreService, UserData } from "../datastore.service";
 import * as AuthStore from "./auth.store";
 import { AppState } from "./app.store";
-import { Router } from "@angular/router";
-import { Bookmarks, Series } from "../shared/models.objects";
-import { keyById } from "../common.fn";
+import { Bookmarks } from "../shared/models.objects";
 
 export interface State {
   bookmarks: Bookmarks,

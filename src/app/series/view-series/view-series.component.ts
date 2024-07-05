@@ -82,4 +82,11 @@ export class ViewSeriesComponent implements OnInit, OnDestroy {
   toggleShowAddBook() {
     this.showAddBook = !this.showAddBook;
   }
+
+  useAccordion(value: string | null | undefined): boolean {
+    if (value && value.length >= 100) {
+      return true;
+    }
+    return false;
+  }
 }

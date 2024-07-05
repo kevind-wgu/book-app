@@ -12,12 +12,13 @@ import { appReducer } from './store/app.store';
 import { AuthEffects } from './store/auth.store';
 import { SeriesEffects } from './store/series.store';
 import { UserdataEffects } from './store/userdata.store';
+import { GlobalEffects } from './store/global.store';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes), 
     provideStore(appReducer), 
-    provideEffects([AuthEffects, SeriesEffects, UserdataEffects]),
+    provideEffects([AuthEffects, SeriesEffects, UserdataEffects, GlobalEffects]),
     provideHttpClient(
       withInterceptorsFromDi(),
       withInterceptors([]),
