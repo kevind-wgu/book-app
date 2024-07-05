@@ -8,7 +8,10 @@
     <div class="mb-2" *ngIf="review">
       <app-review-view [review]="review" [medium]="true"></app-review-view>
     </div>
-    <div><span class="fw-semibold">Author:</span> {{series.author}}</div>
+    <div>
+      <span class="fw-semibold">Author:</span> 
+      <a class="link-secondary" routerLink="/search" [queryParams]="{'q': series.author, 'qt': 'Author'}">{{series.author}}</a>
+    </div>
     <div><span class="fw-semibold">Genre: </span>{{series.genre}}*</div>
     <div><span class="fw-semibold"># Books: </span>{{bookCount}}</div>
     <div *ngIf="!series.complete"><span class="fw-semibold">Series is NOT complete</span></div>

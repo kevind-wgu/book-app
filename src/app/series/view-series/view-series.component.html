@@ -10,7 +10,8 @@
     <app-series-title [series]="series" [bookmarked]="bookmarked"></app-series-title>
     <app-review-view [review]="review" [medium]="true" *ngIf="review"></app-review-view>
     <div class="fs-6">
-      Author: {{series.author}}
+      Author: 
+      <a class="link-secondary" routerLink="/search" [queryParams]="{'q': series.author, 'qt': 'Author'}">{{series.author}}</a>
     </div>
     <div class="fs-6">
       Snopsis: {{series.synopsis}}

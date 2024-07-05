@@ -7,7 +7,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link" routerLink="/search" routerLinkActive="active-header">Search</a>
+        <a class="nav-link" routerLink="/search" [queryParams]="searchDataService.searchCrit" routerLinkActive="active-header">Search</a>
         <a class="nav-link" routerLink="/series/new" routerLinkActive="active-header">Add Series</a>
       </div>
     </div>

@@ -1,11 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/app.store';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ErrortrackerService } from '../errors/errortracker.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { SearchDataService } from '../search/search-data.service';
 
 @Component({
   selector: 'app-header',
@@ -41,7 +42,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   errors: string[] = [];
   errorCount = 0;
 
-  constructor(private store: Store<AppState>, private errorTracker: ErrortrackerService){}
+  constructor(
+    public searchDataService: SearchDataService,
+    private errorTracker: ErrortrackerService,
+    private router: Router,
+  ){}
 
   ngOnInit(): void {
     this.subs.push(this.errorTracker.errorsChanged.subscribe(errors => {
