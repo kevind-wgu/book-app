@@ -1,4 +1,4 @@
-import { LocationType, ProfanityType, RatingType, SexType, ViolenceType } from "./models.types"
+import { LocationType, ProfanityType, RatingType, SexType, ViolenceType, WordFilterType } from "./models.types"
 
 export interface Series {
   id: string
@@ -42,6 +42,12 @@ export interface SeriesReview {
 }
 
 export type Bookmarks = {[key: string]: boolean}
+
+export type SearchData = {
+  wordFilter: string | null,
+  wordFilterType: WordFilterType,
+  overall: RatingType | null,
+}
 
 export class AuthData {
   constructor(

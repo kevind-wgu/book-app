@@ -1,14 +1,12 @@
 <div class="row clickable" *ngIf="!edit" (click)="onShowTools()">
-  <div class="col col-sm-1">
+  <div class="col col-sm-auto">
     <span class="bi bi-caret-{{(showTools || edit || editReview)?'down':'right'}}-fill me-2"></span>
-  </div>
-  <div class="col col-sm">
     <span *ngIf="book.location === LocationType.audible" class="bi bi-headphones h5 ms-2"></span>
     <span *ngIf="book.location === LocationType.kindle" class="bi bi-book h5 ms-2"></span>
-  </div>
-  <div class="col col-sm-8">
-    #{{book.seriesNumber}} {{book.title}}
-    <app-rate-view [type]="review.overall" [small]="true" *ngIf="review"></app-rate-view>
+    <span class="ms-3">
+      #{{book.seriesNumber}} {{book.title}}
+      <app-rate-view [type]="review.overall" [small]="true" *ngIf="review"></app-rate-view>
+    </span>
   </div>
 </div>
 <div class="row mb-2" *ngIf="showTools">

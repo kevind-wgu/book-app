@@ -1,0 +1,32 @@
+<div class="row text-center">
+  <div class="col col-sm-12"> 
+    <button type="button" class="btn btn-outline-secondary btn-sm me-1" (click)="onChangePage(1)">
+      <i class="bi bi-arrow-bar-left"></i>
+    </button>
+    <button type="button" class="btn btn-outline-secondary btn-sm me-1" (click)="onChangePage(this.currentPage-5)">
+      <i class="bi bi-chevron-double-left"></i>
+    </button>
+    <button type="button" class="btn btn-outline-secondary btn-sm me-1" (click)="onChangePage(this.currentPage-1)">
+      <i class="bi bi-chevron-left"></i>
+    </button>
+
+    <button 
+      type="button" 
+      class="btn {{page == currentPage ? 'btn-primary' : 'btn-outline-secondary'}} btn-sm me-1 " 
+      *ngFor="let page of paginView"
+      (click)="onChangePage(page)"
+      >
+      {{page}}
+    </button>
+
+    <button type="button" class="btn btn-outline-secondary btn-sm me-1" (click)="onChangePage(this.currentPage+1)">
+      <i class="bi bi-chevron-right"></i>
+    </button>
+    <button type="button" class="btn btn-outline-secondary btn-sm me-1" (click)="onChangePage(this.currentPage+5)">
+      <i class="bi bi-chevron-double-right"></i>
+    </button>
+    <button type="button" class="btn btn-outline-secondary btn-sm me-1" (click)="onChangePage(this.pages[this.pages.length-1])">
+      <i class="bi bi-arrow-bar-right"></i>
+    </button>
+  </div>
+</div>

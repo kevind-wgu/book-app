@@ -1,5 +1,8 @@
 <div class="row mt-2">
-  <div class="col col-sm-2"><img src="{{series.imageUrl}}" alt="{{series.title}} image" class="img-thumbnail"></div>
+  <!-- Small Screens-->
+  <div class="col col-sm-2 d-none d-sm-block"><img src="{{series.imageUrl}}" alt="{{series.title}} image" class="img-thumbnail"></div>
+  <!-- Medium-Large -->
+  <div class="col col-sm-2 d-block d-sm-none"><img src="{{series.imageUrl}}" alt="{{series.title}} image" class="img-thumbnail" style="max-width: 150px;"></div>
   <div class="col col-sm-8 mx-2">
     <app-series-title [series]="series" [bookmarked]="bookmarked"></app-series-title>
     <div class="mb-2" *ngIf="review">

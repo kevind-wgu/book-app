@@ -36,7 +36,6 @@ export class SearchItemComponent implements OnInit {
     }
     if (this.series.books) {
       this.bookCount = Object.keys(this.series.books).length;
-      console.log("Book count", this.bookCount);
     }
   }
 }

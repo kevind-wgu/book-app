@@ -1,0 +1,10 @@
+<form [formGroup]="form">
+  <div class="input-group mb-3">
+    <label class="input-group-text" for="inputGroupSelect01">Filter</label>
+    <input type="text" class="form-control w-50" aria-label="Filter" formControlName="wordFilter">
+    <span class="input-group-text">Match</span>
+    <select class="form-select" id="inputGroupSelect01" formControlName="wordFilterType">
+      <option [value]="item.value" *ngFor="let item of WordFilterEnum | keyvalue">{{item.value}}</option>
+    </select>
+  </div>
+</form>

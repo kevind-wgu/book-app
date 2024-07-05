@@ -3,7 +3,7 @@
     <img src="{{series.imageUrl}}" alt="{{series.title}} image" class="img-fluid">
   </div>
   <div class="col col-sm-8 mx-2">
-    <span class="col col-sm-2 d-block d-sm-none">
+    <span class="col col-sm-2 d-block d-sm-none ms-5">
       <!-- Display only on small screens -->
       <img src="{{series.imageUrl}}" alt="{{series.title}} image" style="max-width: 25%;">
     </span>
@@ -18,7 +18,7 @@
     <div class="fs-6" *ngIf="sanitizedReviewUrl">
       TODO: ReviewUrl
     </div>
-    <div class="fs-6">
+    <div class="fs-6 h4">
       Books:
     </div>
     <div class="ms-4 mb-2">
@@ -26,7 +26,7 @@
       <app-add-book [seriesId]="series.id" [onCloseListener]="closeAddBook" *ngIf="showAddBook"></app-add-book>
       <button class="btn btn-sm btn-outline-secondary me-1" (click)="toggleShowAddBook()" *ngIf="!showAddBook">Add Book</button>
     </div>
-    <div class="fs-6" *ngIf="series.reviews">
+    <div class="fs-6 h4" *ngIf="series.reviews">
       Reviews:
     </div>
     <div class="ms-4 mb-2" *ngIf="series.reviews">

@@ -118,3 +118,10 @@ export const SexData: SexDataType = {
   [SexType.r]: {type: SexType.r, label: 'R', order: 4, title: 'Sex', colorClass:'text-bg-danger', descr: 'R Descr'},
 }
 export const SexList = Object.values(SexData).sort((a,b) => a.order - b.order);
+
+export enum WordFilterType {
+  any = 'Any', 
+  series = 'Series', 
+  author = 'Author', 
+  book = 'Book', 
+};

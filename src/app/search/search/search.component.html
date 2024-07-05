@@ -1,3 +1,5 @@
+<app-search-form></app-search-form>
 <div *ngFor="let s of series">
   <app-search-item [series]="s" [bookmarked]="bookmarks[s.id]"></app-search-item>
 </div>
+<app-pagin></app-pagin>

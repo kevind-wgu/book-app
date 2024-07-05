@@ -50,22 +50,20 @@ export class AuthEffects {
     () => this.actions$.pipe(
       ofType(autoLogin),
       switchMap(() => {
-        console.log("Auto Login A")
         const localAuthStr = localStorage.getItem('auth');
         if (localAuthStr) {
-          console.log("Auto Login B")
           const auth = this.authFromStorageString(localAuthStr);
 
           if (auth && auth.isValid()) {
-            console.log("Auto Login C")
+            console.log("Auto Login")
             return of(auth);
           }
           else if (auth && auth.getRefreshToken()) {
-            console.log("Auto Login D")
+            console.log("Auto Login Refresh")
             return this.authService.refresh(auth);
           }
         }
-        console.log("Auto Login E")
+        console.log("Auto Login - No stored auth found")
         return of();
       }),
       map((data) => {
